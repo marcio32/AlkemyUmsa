@@ -25,7 +25,6 @@ namespace AlkemyUmsa
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
