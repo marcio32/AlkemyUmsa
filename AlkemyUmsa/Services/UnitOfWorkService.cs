@@ -13,14 +13,6 @@ namespace AlkemyUmsa.Services
             _context = context;
             UserRepository = new UserRepository(_context);
         }
-        public Task<int> Complete()
-        {
-           return _context.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
+       
     }
 }
