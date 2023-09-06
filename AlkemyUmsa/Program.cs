@@ -1,4 +1,5 @@
 using AlkemyUmsa.DataAccess;
+using AlkemyUmsa.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlkemyUmsa
@@ -19,6 +20,8 @@ namespace AlkemyUmsa
             {
                 options.UseSqlServer("name=DefaultConnection");
             });
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWorkService>();
 
             var app = builder.Build();
             
