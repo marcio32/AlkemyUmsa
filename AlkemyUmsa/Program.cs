@@ -1,3 +1,6 @@
+using AlkemyUmsa.DataAccess;
+using Microsoft.EntityFrameworkCore;
+
 namespace AlkemyUmsa
 {
     public class Program
@@ -11,6 +14,11 @@ namespace AlkemyUmsa
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer("name=DefaultConnection");
+            });
 
             var app = builder.Build();
             
