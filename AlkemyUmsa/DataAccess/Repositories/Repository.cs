@@ -9,12 +9,13 @@ namespace AlkemyUmsa.DataAccess.Repositories
 
         public Repository(ApplicationDbContext context)
         {
-               _context = context;
+            _context = context;
         }
 
         public virtual async Task<List<T>> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            var prueba = await _context.Set<T>().ToListAsync();
+            return prueba;
         }
     }
 }
