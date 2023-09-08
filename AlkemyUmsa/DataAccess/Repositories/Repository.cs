@@ -14,8 +14,7 @@ namespace AlkemyUmsa.DataAccess.Repositories
 
         public virtual async Task<List<T>> GetAll()
         {
-            var prueba = await _context.Set<T>().ToListAsync();
-            return prueba;
+            return await _context.Set<T>().ToListAsync();
         }
     }
 }
