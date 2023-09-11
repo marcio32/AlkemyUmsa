@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AlkemyUmsa.DTOs;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlkemyUmsa.Entities
@@ -6,6 +7,27 @@ namespace AlkemyUmsa.Entities
 
     public class User
     {
+        public User(RegisterDto dto)
+        {
+            FirstName = dto.FirstName;
+            LastName = dto.LastName;
+            Email = dto.Email;
+            Password = dto.Password;
+        }
+
+        public User(RegisterDto dto, int id)
+        {
+            Id = id;
+            FirstName = dto.FirstName;
+            LastName = dto.LastName;
+            Email = dto.Email;
+            Password = dto.Password;
+        }
+
+        public User()
+        {
+            
+        }
 
         [Key]
         [Column("user_id")]
