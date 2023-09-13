@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Security.Claims;
 using System.Text;
 
 namespace AlkemyUmsa
@@ -46,6 +47,11 @@ namespace AlkemyUmsa
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer("name=DefaultConnection");
+            });
+
+            builder.Services.AddAuthorization(option =>
+            {
+                option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
             });
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

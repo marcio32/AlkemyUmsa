@@ -1,4 +1,5 @@
 ﻿using AlkemyUmsa.Entities;
+using AlkemyUmsa.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlkemyUmsa.DataAccess.DatabaseSeeding
@@ -14,8 +15,9 @@ namespace AlkemyUmsa.DataAccess.DatabaseSeeding
                     FirstName = "Marcio",
                     LastName =  "Abriola",
                     Email  = "marcioabriola@yahoo.com",
-                    Password = "1234"
-                });
+                    Password = PasswordEncryptHelper.EncryptPassword("1234"),
+                    RoleId = 1
+        });
         }
     }
 }
