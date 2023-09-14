@@ -2,7 +2,7 @@
 
 namespace AlkemyUmsa.DataAccess.Repositories.Interfaces
 {
-    public interface IRoleRepository : IRepository<Role>
+    public interface IUserRepository : IRepository<User>
     {
     }
 }

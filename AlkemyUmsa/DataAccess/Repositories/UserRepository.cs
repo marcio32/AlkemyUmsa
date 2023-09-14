@@ -1,6 +1,7 @@
 ﻿using AlkemyUmsa.DataAccess.Repositories.Interfaces;
 using AlkemyUmsa.DTOs;
 using AlkemyUmsa.Entities;
+using AlkemyUmsa.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlkemyUmsa.DataAccess.Repositories
@@ -10,7 +11,7 @@ namespace AlkemyUmsa.DataAccess.Repositories
 
         public UserRepository(ApplicationDbContext context) : base(context)
         {
-                
+
         }
 
         public override async Task<bool> Update(User updateUser)
@@ -29,17 +30,20 @@ namespace AlkemyUmsa.DataAccess.Repositories
 
         public override async Task<bool> Delete(int id)
         {
-            var user = await _context.Users.Where(x=> x.Id == id).FirstOrDefaultAsync();
-            if (user != null) {
+            var user = await _context.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
+            if (user != null)
+            {
                 _context.Users.Remove(user);
             }
-          
+
             return true;
         }
 
         public async Task<User?> AuthenticateCredentials(AuthenticateDto dto)
         {
-            return await _context.Users.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Password == dto.Password);
+            return await _context.Users.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Password == PasswordEncryptHelper.EncryptPassword(dto.Password));
         }
     }
 }
+
+

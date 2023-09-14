@@ -10,42 +10,42 @@ namespace AlkemyUmsa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
-    public class UserController : ControllerBase
+    public class RoleController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public UserController(IUnitOfWork unitOfWork)
+        public RoleController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Role>>> GetAll()
         {
-            var users = await _unitOfWork.UserRepository.GetAll();
+            var Roles = await _unitOfWork.RoleRepository.GetAll();
 
-            return users;
+            return Roles;
         }
 
 
 
         [HttpPost]
-        [Route("Register")]
-        public async Task<IActionResult> Register(RegisterDto dto)
+        [Route("Role")]
+        public async Task<IActionResult> Insert(RoleDto dto)
         {
            
-            var user = new User(dto);
-            await _unitOfWork.UserRepository.Insert(user);
+            var Role = new Role(dto);
+            await _unitOfWork.RoleRepository.Insert(Role);
             await _unitOfWork.Complete();
             return Ok(true);
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpPut("{id}")]
   
-        public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
+        public async Task<IActionResult> Update([FromRoute] int id, Role role)
         {
-        var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
+        var result = await _unitOfWork.RoleRepository.Update(role);
            
             await _unitOfWork.Complete();
             return Ok(true);
@@ -55,7 +55,7 @@ namespace AlkemyUmsa.Controllers
 
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var result = await _unitOfWork.UserRepository.Delete(id);
+            var result = await _unitOfWork.RoleRepository.Delete(id);
 
             await _unitOfWork.Complete();
             return Ok(true);
