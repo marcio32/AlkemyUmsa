@@ -19,6 +19,11 @@ namespace AlkemyUmsa.Controllers
         }
 
 
+        /// <summary>
+        ///  Obtengo todos los roles
+        /// </summary>
+        /// <returns>devuelde todos los roles</returns>
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetAll()
         {

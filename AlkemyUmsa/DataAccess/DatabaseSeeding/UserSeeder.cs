@@ -15,7 +15,7 @@ namespace AlkemyUmsa.DataAccess.DatabaseSeeding
                     FirstName = "Marcio",
                     LastName =  "Abriola",
                     Email  = "marcioabriola@yahoo.com",
-                    Password = PasswordEncryptHelper.EncryptPassword("1234"),
+                    Password = PasswordEncryptHelper.EncryptPassword("1234", "marcioabriola@yahoo.com"),
                     RoleId = 1
         });
         }
