@@ -1,6 +1,7 @@
 ﻿using AlkemyUmsa.DTOs;
 using AlkemyUmsa.Entities;
 using AlkemyUmsa.Helper;
+using AlkemyUmsa.Infrastructure;
 using AlkemyUmsa.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -19,46 +20,78 @@ namespace AlkemyUmsa.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        ///  Devuelve todo los usuarios
+        /// </summary>
+        /// <returns>retorna todos los usuarios</returns>
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var users = await _unitOfWork.UserRepository.GetAll();
 
-            return users;
+            return ResponseFactory.CreateSuccessResponse(200, users);
         }
 
-
+        /// <summary>
+        ///  Registra el usuario
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>devuelve un usuario registrado con un statusCode 201</returns>
 
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
-           
+
+            if (await _unitOfWork.UserRepository.UserEx(dto.Email)) return ResponseFactory.CreateErrorResponse(409, $"Ya existe un usuario registrado con el mail:{dto.Email}");
             var user = new User(dto);
             await _unitOfWork.UserRepository.Insert(user);
-            await _unitOfWork.Complete();
-            return Ok(true);
+            await _unitOfWork.Complete(); 
+
+            return ResponseFactory.CreateSuccessResponse(201, "Usuario registrado con exito!");
         }
 
+        /// <summary>
+        ///  Actualiza el usuario
+        /// </summary>
+        /// <returns>actualizado o un 500</returns>
         [HttpPut("{id}")]
   
         public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
         {
         var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
-           
-            await _unitOfWork.Complete();
-            return Ok(true);
+
+            if (!result)
+            {
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo eliminar el usuario");
+            }
+            else
+            {
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(200, "Actualizado");
+            }
         }
 
-        [HttpDelete("{id}")]
 
+        /// <summary>
+        ///  Elimina el usuario
+        /// </summary>
+        /// <returns>Eliminado o un 500</returns>
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.UserRepository.Delete(id);
 
-            await _unitOfWork.Complete();
-            return Ok(true);
+            if (!result)
+            {
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo eliminar el usuario");
+            }
+            else
+            {
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(200, "Actualizado");
+            }
         }
 
     }

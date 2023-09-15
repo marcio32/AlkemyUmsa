@@ -14,7 +14,7 @@ namespace AlkemyUmsa.Entities
             LastName = dto.LastName;
             Email = dto.Email;
             RoleId = 2;
-            Password = PasswordEncryptHelper.EncryptPassword(dto.Password);
+            Password = PasswordEncryptHelper.EncryptPassword(dto.Password, dto.Email);
         }
 
         public User(RegisterDto dto, int id)
@@ -24,7 +24,7 @@ namespace AlkemyUmsa.Entities
             LastName = dto.LastName;
             Email = dto.Email;
             RoleId = dto.RoleId;
-            Password = PasswordEncryptHelper.EncryptPassword(dto.Password);
+            Password = PasswordEncryptHelper.EncryptPassword(dto.Password, dto.Email);
         }
 
         public User()

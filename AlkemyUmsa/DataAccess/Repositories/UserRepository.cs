@@ -41,7 +41,12 @@ namespace AlkemyUmsa.DataAccess.Repositories
 
         public async Task<User?> AuthenticateCredentials(AuthenticateDto dto)
         {
-            return await _context.Users.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Password == PasswordEncryptHelper.EncryptPassword(dto.Password));
+            return await _context.Users.Include(x=> x.Role).SingleOrDefaultAsync(x => x.Email == dto.Email && x.Password == PasswordEncryptHelper.EncryptPassword(dto.Password, dto.Email));
+        }
+
+        public async Task<bool> UserEx(string email)
+        {
+            return await _context.Users.AnyAsync(x => x.Email == email);
         }
     }
 }
