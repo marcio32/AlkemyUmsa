@@ -11,7 +11,6 @@ namespace AlkemyUmsa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class UserController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,8 +28,15 @@ namespace AlkemyUmsa.Controllers
         public async Task<IActionResult> GetAll()
         {
             var users = await _unitOfWork.UserRepository.GetAll();
+            int pageToShow = 1;
 
-            return ResponseFactory.CreateSuccessResponse(200, users);
+            if (Request.Query.ContainsKey("page")) int.TryParse(Request.Query["page"], out pageToShow);
+
+            var url = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}").ToString();
+            
+            var paginateUsers = PaginateHelper.Paginate(users, pageToShow, url);
+
+            return ResponseFactory.CreateSuccessResponse(200, paginateUsers);
         }
 
         /// <summary>
@@ -38,9 +44,8 @@ namespace AlkemyUmsa.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns>devuelve un usuario registrado con un statusCode 201</returns>
-
+        [AllowAnonymous]
         [HttpPost]
-        [Route("Register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
 
@@ -56,8 +61,8 @@ namespace AlkemyUmsa.Controllers
         ///  Actualiza el usuario
         /// </summary>
         /// <returns>actualizado o un 500</returns>
+        [Authorize(Policy = "Admin")]
         [HttpPut("{id}")]
-  
         public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
         {
         var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
@@ -78,6 +83,7 @@ namespace AlkemyUmsa.Controllers
         ///  Elimina el usuario
         /// </summary>
         /// <returns>Eliminado o un 500</returns>
+        [Authorize(Policy = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

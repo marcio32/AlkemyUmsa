@@ -8,7 +8,6 @@ namespace AlkemyUmsa.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class LoginController : ControllerBase
     {
         private TokenJwtHelper _tokenJwtHelper;
@@ -18,6 +17,12 @@ namespace AlkemyUmsa.Controllers
             _unitOfWork = unitOfWork;
             _tokenJwtHelper = new TokenJwtHelper(configuration);
         }
+
+
+        /// <summary>
+        ///  Se loguea el usuario
+        /// </summary>
+        /// <returns>el token del usuario</returns>
 
         [HttpPost]
         [AllowAnonymous]
