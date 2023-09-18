@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\Marci\Desktop\Alkemy\AlkemyUmsa\AlkemyUmsa\bin\Debug\net6.0\AlkemyUmsa.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,9 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Entities\" />
-    <Folder Include="Helpers\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
