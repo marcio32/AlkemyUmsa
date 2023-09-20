@@ -10,6 +10,7 @@ namespace AlkemyUmsa.DataAccess
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -17,6 +18,7 @@ namespace AlkemyUmsa.DataAccess
             {
                 new UserSeeder(),
                 new RoleSeeder(),
+                new AccountSeeder()
             };
 
             foreach (var seeder in seeders) {

@@ -4,6 +4,7 @@ using AlkemyUmsa.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlkemyUmsa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230920120222_prueba17")]
+    partial class prueba17
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,8 +50,6 @@ namespace AlkemyUmsa.Migrations
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Accounts");
 
@@ -157,17 +157,6 @@ namespace AlkemyUmsa.Migrations
                             Password = "7ba97c4f66a05b1d9ef83d2d910ef655b09a57726fff38e0f69c07fe82357095",
                             RoleId = 1
                         });
-                });
-
-            modelBuilder.Entity("AlkemyUmsa.Entities.Account", b =>
-                {
-                    b.HasOne("AlkemyUmsa.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AlkemyUmsa.Entities.User", b =>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlkemyUmsa", "AlkemyUmsa\AlkemyUmsa.csproj", "{457C77B6-59FC-4C75-BAAC-40A2A54E57A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlkemyUmsa", "AlkemyUmsa\AlkemyUmsa.csproj", "{457C77B6-59FC-4C75-BAAC-40A2A54E57A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
