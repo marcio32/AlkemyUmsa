@@ -6,6 +6,7 @@ namespace AlkemyUmsa.Services
     {
         public UserRepository UserRepository { get; }
         public RoleRepository RoleRepository { get; }
+        public AccountRepository AccountRepository { get; }
         Task<int> Complete();
      
     }
